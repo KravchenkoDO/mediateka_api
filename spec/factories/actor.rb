@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :actor do |actor|
-    actor.name {"Departed"}
+    actor.last_name {"Departed"}
   end
 
   factory :random_actor, class: 'Actor' do
-    lastname {Faker::Name}
+    last_name {Faker::Name}
   end
 
 end

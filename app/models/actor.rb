@@ -1,3 +1,3 @@
 class Actor < ApplicationRecord
-  validates :lastname, uniqueness: true, presence: true
+  validates :last_name, uniqueness: {case_sensitive: false}, presence: true
 end
