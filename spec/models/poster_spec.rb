@@ -15,4 +15,8 @@ RSpec.describe Poster, :type => :model do
       expect(poster_with_empty_link.valid?).to be_falsey
     end
   end
+
+  describe "columns" do
+    it{is_expected.to have_db_column(:link).of_type(:string)}
+  end
 end

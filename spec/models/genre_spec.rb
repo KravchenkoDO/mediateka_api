@@ -6,7 +6,7 @@ RSpec.describe Genre, :type => :model do
     let(:genre_with_title_nil) { described_class.new title: nil }
     let(:genre_with_empty_title) { described_class.new title: '' }
     let(:genre_with_min_size_title) { described_class.new title: 'Dram' }
-    let(:genre_with_min_size_title) { described_class.new title: 'Western Shoot ‘Em Up Action + Western Shoot ‘Em Up Action ' }
+    let(:genre_with_more_then_max_size_title) { described_class.new title: 'Western Shoot ‘Em Up Action + Western Shoot ‘Em Up Action ' }
     let(:genre_with_valid_title) { described_class.new title: 'Thriller' }
     let(:genre_with_same_title) { described_class.new title: 'action' }
     let(:genre_without_only_letters_title) { described_class.new title: 'Action2' }
@@ -24,8 +24,7 @@ RSpec.describe Genre, :type => :model do
     end
 
     it "is not valid with title attribute more then 50 chars" do
-
-      expect(genre_with_min_size_title).to_not be_valid
+      expect(genre_with_more_then_max_size_title).to_not be_valid
     end
 
     it "is valid with valid title attribute" do
@@ -42,4 +41,7 @@ RSpec.describe Genre, :type => :model do
     end
   end
 
+  describe "columns" do
+    it{is_expected.to have_db_column(:title).of_type(:string)}
+  end
 end

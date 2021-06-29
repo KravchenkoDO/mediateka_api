@@ -26,9 +26,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Flexible authentication solution for Rails with Warden
 gem 'devise', '~> 4.8'
 
-gem 'devise_token_auth', '~> 1.1', '>= 1.1.5'
+
 #Support for send invitations by email (it requires to be authenticated) and accept the invitation by setting a password
-gem 'devise_invitable', '~> 2.0', '>= 2.0.5'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -49,6 +49,7 @@ group :test do
   gem 'database_cleaner', '~> 2.0', '>= 2.0.1'
   gem 'shoulda-matchers', '~> 4.5', '>= 4.5.1'
   gem 'faker', '~> 2.18'
+  gem 'capybara', '~> 3.35', '>= 3.35.3'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
