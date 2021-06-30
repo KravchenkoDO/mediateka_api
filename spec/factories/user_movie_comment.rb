@@ -1,10 +1,5 @@
 FactoryBot.define do
-  factory :user_movie_comment do |user_movie_comment|
-    user_movie_comment.comment {"Departed"}
+  factory :user_movie_comment do
+    comment { Faker::Name.comment }
   end
-
-  factory :random_user_movie_comment, class: 'UserMovieComment' do
-    comment {Faker::Name}
-  end
-
 end

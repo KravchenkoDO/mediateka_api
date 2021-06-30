@@ -1,10 +1,5 @@
 FactoryBot.define do
-  factory :genre do |genre|
-    genre.title {"Horror"}
+  factory :genre do
+    title { Faker::Name.title }
   end
-
-  factory :random_genre, class: Genre do
-    title {Faker::Name}
-  end
-
 end

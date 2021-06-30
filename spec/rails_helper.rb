@@ -13,7 +13,6 @@ Shoulda::Matchers.configure do |config|
   end
 end
 # Add additional requires below this line. Rails is not loaded until this point!
-
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -28,7 +27,6 @@ end
 # require only the support files necessary.
 #
 # Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
-
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
 begin
@@ -49,16 +47,11 @@ RSpec.configure do |config|
   require 'capybara/rspec'
   require 'factory_bot_rails'
   require 'faker'
-
-
   Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
-
   ActiveRecord::Migration.maintain_test_schema!
-
   RSpec.configure do |config|
     config.use_transactional_fixtures = false
     config.include FactoryBot::Syntax::Methods
-
     config.before(:suite) do
       DatabaseCleaner.clean_with(:truncation)
     end
@@ -72,8 +65,6 @@ RSpec.configure do |config|
       DatabaseCleaner.clean
     end
     config.infer_spec_type_from_file_location!
-
-
     # Filter lines from Rails gems in backtraces.
     config.filter_rails_from_backtrace!
     # arbitrary gems may also be filtered via:

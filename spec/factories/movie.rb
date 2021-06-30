@@ -1,14 +1,7 @@
 FactoryBot.define do
-  factory :movie do |movie|
-    movie.title {"Horror"}
-    movie.description {"Horror"}
-    movie.age_limit {"Horror"}
+  factory :movie do
+    title { Faker::Movie.title }
+    description { Faker::Movie.name }
+    age_limit { Faker::Name.name}
   end
-
-  factory :random_movie, class: Movie do
-    title {Faker::Name}
-    description {Faker::Name}
-    age_limit {Faker::Name}
-  end
-
 end

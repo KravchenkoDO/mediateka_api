@@ -1,10 +1,5 @@
 FactoryBot.define do
-  factory :company do |company|
-    company.name {"Departed"}
+  factory :company do
+    name { Faker::Name.name }
   end
-
-  factory :random_company, class: 'Company' do
-    name {Faker::Name}
-  end
-
 end
