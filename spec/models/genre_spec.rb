@@ -3,13 +3,13 @@ require "rails_helper"
 RSpec.describe Genre, :type => :model do
 
   describe 'validation tests' do
-    let(:genre_with_title_nil) { described_class.new title: nil }
-    let(:genre_with_empty_title) { described_class.new title: '' }
-    let(:genre_with_min_size_title) { described_class.new title: 'Dram' }
-    let(:genre_with_min_size_title) { described_class.new title: 'Western Shoot ‘Em Up Action + Western Shoot ‘Em Up Action ' }
-    let(:genre_with_valid_title) { described_class.new title: 'Thriller' }
-    let(:genre_with_same_title) { described_class.new title: 'action' }
-    let(:genre_without_only_letters_title) { described_class.new title: 'Action2' }
+    let(:genre_with_title_nil) { build :genre, title: nil }
+    let(:genre_with_empty_title) { build :genre, title: '' }
+    let(:genre_with_min_size_title) { build :genre, title: 'Dram' }
+    let(:genre_with_more_then_max_size_title) { build :genre, title: SecureRandom.urlsafe_base64(51) }
+    let(:genre_with_valid_title) { build :genre, title: 'Thriller' }
+    let(:genre_with_same_title) { build :genre, title: 'action' }
+    let(:genre_without_only_letters_title) { build :genre, title: 'Action2' }
 
     it "is not valid without a title" do
       expect(genre_with_title_nil.valid?).to be_falsey
@@ -24,8 +24,7 @@ RSpec.describe Genre, :type => :model do
     end
 
     it "is not valid with title attribute more then 50 chars" do
-
-      expect(genre_with_min_size_title).to_not be_valid
+      expect(genre_with_more_then_max_size_title).to_not be_valid
     end
 
     it "is valid with valid title attribute" do
@@ -42,4 +41,7 @@ RSpec.describe Genre, :type => :model do
     end
   end
 
+  describe "columns" do
+    it { is_expected.to have_db_column(:title).of_type(:string) }
+  end
 end
