@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="mediateka_development@localhost" uuid="84663078-61de-450c-bca4-c15fd47bd8ea">
+    <data-source source="LOCAL" name="Rails mediateka_api: test" uuid="c6e9f87a-a953-47c9-ad9f-034f3de20582">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/mediateka_development</jdbc-url>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/mediateka_test</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="mediateka_test@localhost" uuid="8b3e92b8-5bdd-4993-86d0-da68ab56a871">
+    <data-source source="LOCAL" name="Rails mediateka_api: development" uuid="97fca539-5421-4c86-9eb0-49d48e0cf209">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/mediateka_test</jdbc-url>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/mediateka_development</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
