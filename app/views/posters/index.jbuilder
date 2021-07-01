@@ -1,0 +1,1 @@
+json.posters @posters, :id, :link

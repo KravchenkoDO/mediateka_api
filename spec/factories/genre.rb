@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :genre do
-    title { Faker::Name.title }
+    title { Faker::Name.name }
   end
 end
