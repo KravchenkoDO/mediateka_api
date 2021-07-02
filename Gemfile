@@ -21,11 +21,12 @@ gem 'rexml'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'rack-cors'
+gem 'rake', '~> 13.0', '>= 13.0.3'
 
 # Flexible authentication solution for Rails with Warden
 gem 'devise', '~> 4.8'
-
+gem 'devise_token_auth', github: 'lynndylanhurley/devise_token_auth', branch: 'master'
 
 #Support for send invitations by email (it requires to be authenticated) and accept the invitation by setting a password
 
@@ -33,6 +34,7 @@ gem 'devise', '~> 4.8'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-core', '~> 3.10', '>= 3.10.1'
   gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
   gem 'rubocop', '~> 1.17'
   gem 'rubocop-rspec', '~> 2.4'
