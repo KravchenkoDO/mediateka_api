@@ -111,31 +111,30 @@ RSpec.describe "Producers", type: :request do
         it 'updates last name' do
           expect(producer.reload.last_name).to eq(valid_attributes[:last_name])
         end
-        end
       end
-
-      context 'when the record does not exist' do
-
-        before { put "/producers/100" }
-
-        it 'returns status code 404' do
-          expect(response).to have_http_status(404)
-        end
-      end
-
     end
 
-    # Test suite for DELETE /producers/:id
-    describe 'DELETE /producers/:id' do
+    context 'when the record does not exist' do
 
-      it 'returns status code 204' do
-        delete "/producers/#{producer.id}"
-        expect(response).to have_http_status(204)
-      end
+      before { put "/producers/100" }
 
       it 'returns status code 404' do
-        delete "/producers/123"
         expect(response).to have_http_status(404)
       end
     end
   end
+
+  # Test suite for DELETE /producers/:id
+  describe 'DELETE /producers/:id' do
+
+    it 'returns status code 204' do
+      delete "/producers/#{producer.id}"
+      expect(response).to have_http_status(204)
+    end
+
+    it 'returns status code 404' do
+      delete "/producers/123"
+      expect(response).to have_http_status(404)
+    end
+  end
+end
