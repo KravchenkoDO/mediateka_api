@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :random_link, class: Poster do
-    link { Faker::Internet.email }
+  factory :poster, class: Poster do
+    link { Faker::Internet.domain_name }
   end
 end
