@@ -3,16 +3,36 @@ require 'rails_helper'
 RSpec.describe "Producers", type: :request do
   include RequestSpecHelper
   let(:producers) { create_list :producer, 5 }
-  let(:producer) { producers.first }
+  let(:producer) { producers.last }
 
   describe "GET /index" do
 
     let(:expected_first_producer) do
-      {
-        id: producer.id,
+      { id: producer.id,
         first_name: producer.first_name,
-        last_name: producer.last_name
+        last_name: producer.last_name,
       }.with_indifferent_access
+    end
+    let(:order_producer) do
+      { sort_by: :first_name,
+        order: :asc
+      }
+    end
+    let(:filtering_first_name) do
+      {
+        first_name: producer.first_name
+      }
+    end
+    let(:filtering_last_name) do
+      {
+        last_name: producer.last_name
+      }
+    end
+    let(:pagination_page) do
+      {
+        per_page: 2,
+        page: 1
+      }
     end
 
     before { producers }
@@ -27,10 +47,36 @@ RSpec.describe "Producers", type: :request do
       expect(JSON.parse(response.body)['producers'].count).to eq(5)
     end
 
+    it "returns filtered producers first name" do
+      get '/producers', params: filtering_first_name
+      expect(parsed_body["producers"].length).to eq(1)
+    end
+
+    it "returns filtered producers last name" do
+      get '/producers', params: filtering_last_name
+      expect(parsed_body["producers"].length).to eq(1)
+    end
+
+    it "returns find producer first name" do
+      get '/producers', params: filtering_first_name
+      expect(parsed_body["producers"].first["first_name"]).to eq(producer.first_name)
+    end
+
+    it "returns find producer last name" do
+      get '/producers', params: filtering_last_name
+      expect(parsed_body["producers"].first["last_name"]).to eq(producer.last_name)
+    end
+
     it "return correct key" do
       get "/producers"
       expect(JSON.parse(response.body)['producers'].first).to include(expected_first_producer)
     end
+
+    it "return pagination" do
+      get "/producers", params: pagination_page
+      expect(parsed_body["producers"].count).to eq(2)
+    end
+
     # Test suite for GET /producers/:id
     describe 'GET /producers/:id' do
       before { get "/producers/#{producer.id}" }
