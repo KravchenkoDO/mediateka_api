@@ -17,6 +17,6 @@ test:
   <<: *default
   database: mediateka_test
 
-#production:
-#  <<: *default
-#  database: mediateka_production
+production:
+  <<: *default
+  database: mediateka_production
