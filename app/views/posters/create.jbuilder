@@ -1,4 +1,3 @@
-json.id @poster.id
-json.link @poster.link
-json.created_at @poster.created_at
-json.updated_at @poster.updated_at
+# frozen_string_literal: true
+
+json.call @poster, :id, :link, :created_at, :updated_at
