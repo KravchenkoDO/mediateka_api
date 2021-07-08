@@ -9,7 +9,6 @@ RSpec.describe Genre, :type => :model do
     let(:genre_with_more_then_max_size_title) { build :genre, title: SecureRandom.urlsafe_base64(51) }
     let(:genre_with_valid_title) { build :genre, title: 'Thriller' }
     let(:genre_with_same_title) { build :genre, title: 'action' }
-    let(:genre_without_only_letters_title) { build :genre, title: 'Action2' }
 
     it "is not valid without a title" do
       expect(genre_with_title_nil.valid?).to be_falsey
@@ -34,10 +33,6 @@ RSpec.describe Genre, :type => :model do
     before { described_class.create!(title: 'Action') }
     it "is not valid with the same title attribute" do
       expect(genre_with_same_title).to_not be_valid
-    end
-
-    it "is valid title with only letters" do
-      expect(genre_without_only_letters_title).to_not be_valid
     end
   end
 

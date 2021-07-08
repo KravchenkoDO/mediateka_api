@@ -46,8 +46,8 @@ RSpec.describe "Registration", :type => :request do
         end
 
         it 'creates new user' do
-          expect{
-            post @sign_up_url, params: @signup_params.merge({email: "test@example.com"})
+          expect {
+            post @sign_up_url, params: @signup_params.merge({ email: "test@example.com" })
           }.to change(User, :count).by(1)
         end
 
@@ -60,8 +60,6 @@ RSpec.describe "Registration", :type => :request do
           expect(response.status).to eq 422
         end
       end
-
     end
   end
-
 end
