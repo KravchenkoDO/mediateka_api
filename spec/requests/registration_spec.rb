@@ -50,7 +50,6 @@ RSpec.describe "Registration", :type => :request do
             post @sign_up_url, params: @signup_params.merge({ email: "test@example.com" })
           }.to change(User, :count).by(1)
         end
-
       end
 
       context 'when signup params is invalid' do

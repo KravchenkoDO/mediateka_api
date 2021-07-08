@@ -3,7 +3,7 @@ class ProducersController < ApplicationController
   before_action :find_producer, except: %i[create index]
 
   def index
-    @producers = Producer.all
+    @producers = Producer.filtering(params)
   end
 
   def show; end

@@ -3,7 +3,7 @@ class CompaniesController < ApplicationController
 
   # GET /companies
   def index
-    @companies = Company.all
+    @companies = Company.filtering(params)
   end
 
   # GET /companies/:id
