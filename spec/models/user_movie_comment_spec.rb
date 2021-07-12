@@ -7,17 +7,22 @@ RSpec.describe UserMovieComment, :type => :model do
     let(:user_movie_comment_with_comment_nil) { build :user_movie_comment, comment: nil }
     let(:user_movie_comment_with_empty_comment) { build :user_movie_comment, comment: '' }
     let(:user_movie_comment_with_more_then_max_size_comment) { build :user_movie_comment, comment: SecureRandom.urlsafe_base64(2001) }
+    let(:user_movie_comment_with_rating_nil) { build :user_movie_comment, rating: nil }
 
-    it "is not valid without a comment" do
-      expect(user_movie_comment_with_comment_nil.valid?).to be_falsey
+    it "is valid a comment" do
+      expect(user_movie_comment_with_comment_nil.valid?)
     end
 
-    it "is not valid with empty comment attribute" do
-      expect(user_movie_comment_with_empty_comment.valid?).to be_falsey
+    it "is valid with empty comment attribute" do
+      expect(user_movie_comment_with_empty_comment.valid?)
     end
 
-    it "is not valid with title attribute more then 2000 chars" do
+    it "is not valid with comment attribute more then 2000 chars" do
       expect(user_movie_comment_with_more_then_max_size_comment).to_not be_valid
+    end
+
+    it "is not valid a rating" do
+      expect(user_movie_comment_with_rating_nil).to_not be_valid
     end
   end
 
