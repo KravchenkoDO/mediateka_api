@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :movie do
-    title { Faker::Movie.title }
+    sequence :title do |n|
+      "title #{n}"
+    end
     description { Faker::Movie.name }
     age_limit { Faker::Name.initials(number: 8) }
     budget { Faker::Number.between(from: 1, to: 10) }
