@@ -12,8 +12,7 @@ class UsersController < ApplicationController
 
   # PUT /users/:id
   def update
-    unless @user.update(first_name: params[:first_name], last_name: params[:last_name],
-                        nickname: params[:nickname], role: params[:role], email: params[:email])
+    unless @user.update(user_params)
       render json: { errors: @user.errors.messages }, status: :unprocessable_entity
     end
   end
@@ -25,8 +24,7 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(first_name: params[:first_name], last_name: params[:last_name], nickname: params[:nickname],
-                     role: params[:role], email: params[:email], password: params[:password])
+    @user = User.new(user_params)
     if @user.save
       render status: :created
     else
@@ -35,6 +33,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def user_params
+    params.permit(:first_name, :last_name, :role, :email, :password, :nickname )
+  end
 
   def find_user
     @user = User.find_by_id params[:id]

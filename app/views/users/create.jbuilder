@@ -1,8 +1,4 @@
 # frozen_string_literal: true
 
-json.id @user.id
-json.first_name @user.first_name
-json.last_name @user.last_name
-json.email @user.email
-json.password @user.password
-json.nickname @user.nickname
+#render partial: "shared/create_show"
+json.call @user, :id, :first_name, :last_name, :nickname, :role, :email, :password
