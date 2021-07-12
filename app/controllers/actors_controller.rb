@@ -1,6 +1,7 @@
 class ActorsController < ApplicationController
 
   before_action :find_actor, except: %i[create index]
+  before_action :permit_actor_params, only: %i[create update]
 
   def index
     @actors = Actor.filtering(params)
@@ -9,7 +10,7 @@ class ActorsController < ApplicationController
   def show; end
 
   def create
-    @actor = Actor.new(first_name: params[:first_name], last_name: params[:last_name])
+    @actor = Actor.new(@permitted_params)
     if @actor.save
       render status: :created
     else
@@ -18,7 +19,7 @@ class ActorsController < ApplicationController
   end
 
   def update
-    unless @actor.update(first_name: params[:first_name], last_name: params[:last_name])
+    unless @actor.update(@permitted_params)
       render json: { errors: @actor.errors.messages }, status: :unprocessable_entity
     end
   end
@@ -32,5 +33,9 @@ class ActorsController < ApplicationController
   def find_actor
     @actor = Actor.find_by_id params[:id]
     head :not_found unless @actor
+  end
+
+  def permit_actor_params
+    @permitted_params = params.require(:actor).permit(:first_name, :last_name)
   end
 end
