@@ -36,6 +36,6 @@ class ActorsController < ApplicationController
   end
 
   def permit_actor_params
-    @permitted_params = params.require(:actor).permit(:first_name, :last_name)
+    @permitted_params = params.permit(:first_name, :last_name)
   end
 end
