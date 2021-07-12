@@ -1,10 +1,12 @@
 class User < ActiveRecord::Base
-  extend Devise::Models
+  # extend Devise::Models
+  #
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-  include DeviseTokenAuth::Concerns::User
+  #
+  # devise :database_authenticatable, :registerable,
+  #        :recoverable, :rememberable, :trackable, :validatable
+  # include DeviseTokenAuth::Concerns::User
 
   # model scoups
   scope :like, -> (key, value) { where("#{key} ILIKE ?", "%#{value}%") if value.present? }
