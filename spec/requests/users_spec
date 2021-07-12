@@ -1,0 +1,59 @@
+require 'rails_helper'
+
+RSpec.describe 'Users', type: :request do
+  # initialize test data
+  let(:users) { create_list(:user, 10) }
+  let(:user) { users.first }
+  let(:sorted_user) { User.order(:first_name).first }
+  let(:order_user) do
+    {
+      field_name: 'first_name',
+      order_type: 'desc'
+    }
+  end
+  let(:filtering_name) do
+    {
+      first_name: user.first_name
+    }
+  end
+  let(:pagination) do
+    {
+      page: 1,
+      per_page: 2
+    }
+  end
+  # Test suite for GET /companies
+  describe 'GET /users' do
+    before { users }
+
+    it 'returns users' do
+      get '/users'
+      expect(parsed_body['users'].length).to eq(10)
+    end
+
+    it 'returns users' do
+      get '/users', params: order_user
+      expect(parsed_body['users'].last['first_name']).to eq(sorted_user.first_name)
+    end
+
+    it 'returns 1 page with 2 users per page' do
+      get '/users', params: pagination
+      expect(parsed_body['users'].length).to eq(2)
+    end
+
+    it 'returns filtered users' do
+      get '/users', params: filtering_name
+      expect(parsed_body['users'].length).to eq(1)
+    end
+
+    it 'returns find users' do
+      get '/users', params: filtering_name
+      expect(parsed_body['users'].first['first_name']).to eq(user.first_name)
+    end
+
+    it 'returns status code 200' do
+      get '/users'
+      expect(response).to have_http_status(200)
+    end
+  end
+end
