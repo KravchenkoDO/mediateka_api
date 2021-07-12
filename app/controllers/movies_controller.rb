@@ -1,6 +1,7 @@
 class MoviesController < ApplicationController
 
   before_action :find_movie, except: %i[create index]
+  before_action :permit_movie_params, only: %i[create update]
 
   def index
     @movies = Movie.filtering(params)
@@ -9,8 +10,7 @@ class MoviesController < ApplicationController
   def show; end
 
   def create
-    @movie = Movie.new(title: params[:title], description: params[:description], age_limit: params[:age_limit],
-                       budget: params[:budget], box_office: params[:box_office])
+    @movie = Movie.new(@permitted_params)
     if @movie.save
       render status: :created
     else
@@ -19,8 +19,7 @@ class MoviesController < ApplicationController
   end
 
   def update
-    unless @movie.update(title: params[:title], description: params[:description], age_limit: params[:age_limit],
-                         budget: params[:budget], box_office: params[:box_office])
+    unless @movie.update(@permitted_params)
       render json: { errors: @movie.errors.messages }, status: :unprocessable_entity
     end
   end
@@ -34,5 +33,9 @@ class MoviesController < ApplicationController
   def find_movie
     @movie = Movie.find_by_id params[:id]
     head :not_found unless @movie
+  end
+
+  def permit_movie_params
+    @permitted_params = params.require(:movie).permit(:title, :description, :age_limit, :budget, :box_office)
   end
 end
