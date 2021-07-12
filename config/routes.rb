@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :producers
   resources :companies
   resources :posters
+  resources :genres
   resources :actors
   resources :movies
   mount_devise_token_auth_for 'User', at: 'auth'
