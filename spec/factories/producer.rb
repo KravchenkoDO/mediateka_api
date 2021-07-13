@@ -1,6 +1,11 @@
 FactoryBot.define do
   factory :producer do
-    first_name { Faker::Name.first_name }
-    last_name { Faker::Name.last_name }
+    sequence :first_name do |n|
+      "first_name #{n}"
+    end
+
+    sequence :last_name do |n|
+      "last_name #{n}"
+    end
   end
 end
