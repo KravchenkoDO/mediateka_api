@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-
+  include Pundit
   before_action :find_movie, except: %i[create index]
   before_action :permit_movie_params, only: %i[create update]
 
@@ -7,7 +7,9 @@ class MoviesController < ApplicationController
     @movies = Movie.filtering(params)
   end
 
-  def show; end
+  def show
+    authorize @movie
+  end
 
   def create
     @movie = Movie.new(@permitted_params)

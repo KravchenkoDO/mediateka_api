@@ -28,7 +28,7 @@ gem 'rake', '~> 13.0', '>= 13.0.3'
 gem 'devise', '~> 4.8'
 gem 'devise_token_auth', github: 'lynndylanhurley/devise_token_auth', branch: 'master'
 
-#Support for send invitations by email (it requires to be authenticated) and accept the invitation by setting a password
+gem 'pundit', '~> 2.1'
 
 
 group :development, :test do
