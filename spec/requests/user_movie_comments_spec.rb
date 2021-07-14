@@ -65,7 +65,7 @@ RSpec.describe "UserMovieComments", type: :request do
     end
 
     it "return pagination" do
-      get "/movies", params: pagination_page
+      get "/user_movie_comments", params: pagination_page
       expect(parsed_body).to include(expected_pagination)
     end
   end
