@@ -18,12 +18,19 @@ RSpec.describe 'Companies', type: :request do
       name: company.name
     }
   end
-  let(:pagination) do
+  let(:pagination_page) do
     {
       page: 1,
       per_page: 2
     }
   end
+  let(:expected_pagination) do
+    {
+      total_pages: 5,
+      current_page: 1
+    }.with_indifferent_access
+  end
+
   # Test suite for GET /companies
   describe 'GET /companies' do
     before { companies }
@@ -39,13 +46,23 @@ RSpec.describe 'Companies', type: :request do
     end
 
     it 'returns 1 page with 2 companies per page' do
-      get '/companies', params: pagination
+      get '/companies', params: pagination_page
       expect(parsed_body['companies'].length).to eq(2)
     end
 
     it 'returns filtered companies' do
       get '/companies', params: filtering_name
       expect(parsed_body['companies'].length).to eq(1)
+    end
+
+    it "perform pagination" do
+      get "/companies", params: pagination_page
+      expect(parsed_body["companies"].count).to eq(2)
+    end
+
+    it "return pagination" do
+      get "/companies", params: pagination_page
+      expect(parsed_body).to include(expected_pagination)
     end
 
     it 'returns find companies' do

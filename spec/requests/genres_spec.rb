@@ -24,6 +24,12 @@ RSpec.describe "Genres", type: :request do
         page: 1
       }
     end
+    let(:expected_pagination) do
+      {
+        total_pages: 3,
+        current_page: 1
+      }.with_indifferent_access
+    end
 
     before { genres }
 
@@ -50,6 +56,16 @@ RSpec.describe "Genres", type: :request do
     it "returns find genres title" do
       get '/genres', params: filtering_title
       expect(parsed_body["genres"].first["title"]).to eq(genre.title)
+    end
+
+    it "perform pagination" do
+      get "/genres", params: pagination_page
+      expect(parsed_body["genres"].count).to eq(2)
+    end
+
+    it "return pagination" do
+      get "/genres", params: pagination_page
+      expect(parsed_body).to include(expected_pagination)
     end
   end
 

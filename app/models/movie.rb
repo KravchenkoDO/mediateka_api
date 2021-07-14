@@ -12,14 +12,9 @@ class Movie < ApplicationRecord
   validates :budget, numericality: { greater_than_or_equal_to: 0 }
   validates :box_office, numericality: { greater_than_or_equal_to: 0 }
 
-  scope :like, -> (key, value) { where("#{key} ILIKE ?", "%#{value}%") if value.present? }
-  scope :pagination, -> (page, per_page) { limit(per_page).offset(per_page.to_i * (page.to_i - 1)) }
-  scope :sorting_by_params, -> (key, value) { order("#{key} #{value}") }
-
   def self.filtering(params)
     like(:title, params[:title])
       .like(:age_limit, params[:age_limit])
-      .pagination(params[:page] || 1, params[:per_page] || 10)
       .sorting_by_params(params[:sort_by] || 'created_at', params[:order] || 'desc')
   end
 end

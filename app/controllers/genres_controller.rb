@@ -4,7 +4,7 @@ class GenresController < ApplicationController
   before_action :permit_genre_params, only: %i[create update]
 
   def index
-    @genres = Genre.filtering(params)
+    @genres = Genre.filtering(params).page(page).per(per_page)
   end
 
   def show; end

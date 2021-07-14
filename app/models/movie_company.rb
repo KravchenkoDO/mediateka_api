@@ -4,6 +4,4 @@ class MovieCompany < ApplicationRecord
   belongs_to :movie
   belongs_to :company
 
-  # validation
-
 end

@@ -1,15 +1,16 @@
 class PostersController < ApplicationController
 
   before_action :find_poster, except: %i[create index]
+  before_action :permit_poster_params, only: %i[create update]
 
   def index
-    @posters = Poster.all
+    @posters = Poster.all.page(page).per(per_page)
   end
 
   def show; end
 
   def create
-    @poster = Poster.new(id: params[:id], link: params[:link])
+    @poster = Poster.new(@permitted_params)
     if @poster.save
       render status: :created
     else
@@ -18,7 +19,7 @@ class PostersController < ApplicationController
   end
 
   def update
-    unless @poster.update(id: params[:id], link: params[:link])
+    unless @poster.update(@permitted_params)
       render json: { errors: @poster.errors.messages }, status: :unprocessable_entity
     end
   end
@@ -32,5 +33,9 @@ class PostersController < ApplicationController
   def find_poster
     @poster = Poster.find_by_id params[:id]
     head :not_found unless @poster
+  end
+
+  def permit_poster_params
+    @permitted_params = params.permit(:link)
   end
 end

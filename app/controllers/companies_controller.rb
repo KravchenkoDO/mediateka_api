@@ -1,9 +1,9 @@
 class CompaniesController < ApplicationController
   before_action :find_company, only: [:show, :update, :destroy]
-
+  before_action :permit_company_params, only: %i[create update]
   # GET /companies
   def index
-    @companies = Company.filtering(params)
+    @companies = Company.filtering(params).page(page).per(per_page)
   end
 
   # GET /companies/:id
@@ -11,7 +11,7 @@ class CompaniesController < ApplicationController
 
   # PUT /companies/:id
   def update
-    unless  @company.update(name: params[:name])
+    unless @company.update(@permitted_params)
       render json: { errors: @company.errors.messages }, status: :unprocessable_entity
     end
   end
@@ -23,9 +23,9 @@ class CompaniesController < ApplicationController
 
   # POST /companies
   def create
-    @company = Company.new(name: params[:name])
+    @company = Company.new(@permitted_params)
     if @company.save
-      render  status: :created
+      render status: :created
     else
       render json: { errors: @company.errors.messages }, status: 422
     end
@@ -36,5 +36,9 @@ class CompaniesController < ApplicationController
   def find_company
     @company = Company.find_by_id params[:id]
     head :not_found unless @company
+  end
+
+  def permit_company_params
+    @permitted_params = params.permit(:name)
   end
 end

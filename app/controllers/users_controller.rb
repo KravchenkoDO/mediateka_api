@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.filtering(params)
+    @users = User.filtering(params).page(page).per(per_page)
   end
 
   # GET /users/:id
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:first_name, :last_name, :role, :email, :password, :nickname )
+    params.permit(:first_name, :last_name, :role, :email, :password, :nickname)
   end
 
   def find_user

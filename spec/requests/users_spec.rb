@@ -16,11 +16,17 @@ RSpec.describe 'Users', type: :request do
       first_name: user.first_name
     }
   end
-  let(:pagination) do
+  let(:pagination_page) do
     {
       page: 1,
       per_page: 2
     }
+  end
+  let(:expected_pagination) do
+    {
+      total_pages: 5,
+      current_page: 1
+    }.with_indifferent_access
   end
 
   # Test suite for GET /companies
@@ -38,7 +44,7 @@ RSpec.describe 'Users', type: :request do
     end
 
     it 'returns 1 page with 2 users per page' do
-      get '/users', params: pagination
+      get '/users', params: pagination_page
       expect(parsed_body['users'].length).to eq(2)
     end
 
@@ -55,6 +61,16 @@ RSpec.describe 'Users', type: :request do
     it 'returns status code 200' do
       get '/users'
       expect(response).to have_http_status(200)
+    end
+
+    it "perform pagination" do
+      get "/users", params: pagination_page
+      expect(parsed_body["users"].count).to eq(2)
+    end
+
+    it "return pagination" do
+      get "/users", params: pagination_page
+      expect(parsed_body).to include(expected_pagination)
     end
   end
 
@@ -73,7 +89,7 @@ RSpec.describe 'Users', type: :request do
     end
 
     context 'when the record does not exist' do
-      before { get '/users/100' }
+      before { get '/users/abc' }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
