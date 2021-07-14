@@ -4,7 +4,7 @@ class ActorsController < ApplicationController
   before_action :permit_actor_params, only: %i[create update]
 
   def index
-    @actors = Actor.filtering(params)
+    @actors = Actor.filtering(params).page(page).per(per_page)
   end
 
   def show; end
