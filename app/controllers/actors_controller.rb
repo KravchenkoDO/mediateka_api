@@ -9,8 +9,11 @@ class ActorsController < ApplicationController
 
   def show; end
 
+  authorize @actors
+
   def create
     @actor = Actor.new(@permitted_params)
+    authorize @actors
     if @actor.save
       render status: :created
     else
@@ -20,12 +23,14 @@ class ActorsController < ApplicationController
 
   def update
     unless @actor.update(@permitted_params)
+      authorize @actors
       render json: { errors: @actor.errors.messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
     @actor.destroy
+    authorize @actors
   end
 
   private

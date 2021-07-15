@@ -1,5 +1,4 @@
-class MoviePolicy < ApplicationPolicy
-
+class GenrePolicy < ApplicationPolicy
   def show?
     (user.role == 'admin' || user.role == 'current_user') || user.present? if user
   end

@@ -22,5 +22,4 @@ RSpec.describe MoviePolicy, type: :policy do
       it { should_not permit(user) }
     end
   end
-
 end

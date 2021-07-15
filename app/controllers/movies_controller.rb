@@ -13,6 +13,7 @@ class MoviesController < ApplicationController
 
   def create
     @movie = Movie.new(@permitted_params)
+    authorize @movie
     if @movie.save
       render status: :created
     else
@@ -22,12 +23,14 @@ class MoviesController < ApplicationController
 
   def update
     unless @movie.update(@permitted_params)
+      authorize @movie
       render json: { errors: @movie.errors.messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
     @movie.destroy
+    authorize @movie
   end
 
   private

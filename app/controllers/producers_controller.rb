@@ -9,8 +9,11 @@ class ProducersController < ApplicationController
 
   def show; end
 
+  authorize @producers
+
   def create
     @producer = Producer.new(@permitted_params)
+    authorize @producers
     if @producer.save
       render status: :created
     else
@@ -20,12 +23,14 @@ class ProducersController < ApplicationController
 
   def update
     unless @producer.update(@permitted_params)
+      authorize @producers
       render json: { errors: @producer.errors.messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
     @producer.destroy
+    authorize @producers
   end
 
   private

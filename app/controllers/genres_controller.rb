@@ -9,8 +9,11 @@ class GenresController < ApplicationController
 
   def show; end
 
+  authorize @genres
+
   def create
     @genre = Genre.new(@permitted_params)
+    authorize @genres
     return render json: { errors: @genre.errors.messages }, status: 422 unless @genre.save
 
     render status: :created
@@ -18,12 +21,14 @@ class GenresController < ApplicationController
 
   def update
     unless @genre.update(@permitted_params)
+      authorize @genres
       render json: { errors: @genre.errors.messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
     @genre.destroy
+    authorize @genres
   end
 
   private

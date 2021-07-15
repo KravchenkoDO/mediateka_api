@@ -10,9 +10,12 @@ class UsersController < ApplicationController
   # GET /users/:id
   def show; end
 
+  authorize @users
+
   # PUT /users/:id
   def update
     unless @user.update(user_params)
+      authorize @users
       render json: { errors: @user.errors.messages }, status: :unprocessable_entity
     end
   end
@@ -20,11 +23,13 @@ class UsersController < ApplicationController
   # DELETE /users/:id
   def destroy
     @user.destroy
+    authorize @users
   end
 
   # POST /users
   def create
     @user = User.new(user_params)
+    authorize @users
     if @user.save
       render status: :created
     else
