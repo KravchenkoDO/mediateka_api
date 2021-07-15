@@ -1,8 +1,12 @@
 class Movie < ApplicationRecord
 
   # model association
-  has_many :movie_companies
-  has_many :companies, through: :movie_companies
+  has_and_belongs_to_many :companies
+  has_and_belongs_to_many :producers
+  has_and_belongs_to_many :genres
+  has_and_belongs_to_many :actors
+  belongs_to :poster
+  has_many :user_movie_comments
 
   # validation
   validates :title, uniqueness: { case_sensitive: false }, presence: true,

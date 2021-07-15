@@ -9,6 +9,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  has_many :user_movie_comments
+  has_many :genres
+  has_many :movies
+
   def self.filtering(params)
     like(:first_name, params[:first_name])
       .like(:last_name, params[:last_name])
