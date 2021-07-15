@@ -10,6 +10,18 @@ RSpec.describe "Posters", type: :request do
       link: poster.link
     }.with_indifferent_access
   end
+  let(:pagination_page) do
+    {
+      per_page: 2,
+      page: 1
+    }
+  end
+  let(:expected_pagination) do
+    {
+      total_pages: 3,
+      current_page: 1
+    }.with_indifferent_access
+  end
 
   before { posters }
 
@@ -28,6 +40,16 @@ RSpec.describe "Posters", type: :request do
     it "return correct key" do
       get "/posters"
       expect(JSON.parse(response.body)['posters'].first).to include(expected_first_poster)
+    end
+
+    it "perform pagination" do
+      get "/posters", params: pagination_page
+      expect(parsed_body["posters"].count).to eq(2)
+    end
+
+    it "return pagination" do
+      get "/posters", params: pagination_page
+      expect(parsed_body).to include(expected_pagination)
     end
   end
 

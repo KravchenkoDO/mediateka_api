@@ -4,7 +4,7 @@ class UserMovieCommentsController < ApplicationController
   before_action :permit_user_movie_comment_params, only: %i[create update]
 
   def index
-    @user_movie_comments = UserMovieComment.filtering(params)
+    @user_movie_comments = UserMovieComment.filtering(params).page(page).per(per_page)
   end
 
   def show; end

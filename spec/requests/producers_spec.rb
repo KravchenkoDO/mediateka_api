@@ -34,6 +34,12 @@ RSpec.describe "Producers", type: :request do
         page: 1
       }
     end
+    let(:expected_pagination) do
+      {
+        total_pages: 3,
+        current_page: 1
+      }.with_indifferent_access
+    end
 
     before { producers }
 
@@ -72,9 +78,14 @@ RSpec.describe "Producers", type: :request do
       expect(JSON.parse(response.body)['producers'].first).to include(expected_first_producer)
     end
 
-    it "return pagination" do
+    it "perform pagination" do
       get "/producers", params: pagination_page
       expect(parsed_body["producers"].count).to eq(2)
+    end
+
+    it "return pagination" do
+      get "/producers", params: pagination_page
+      expect(parsed_body).to include(expected_pagination)
     end
 
     # Test suite for GET /producers/:id

@@ -30,6 +30,12 @@ RSpec.describe "UserMovieComments", type: :request do
         page: 1
       }
     end
+    let(:expected_pagination) do
+      {
+        total_pages: 3,
+        current_page: 1
+      }.with_indifferent_access
+    end
 
     before { user_movie_comments }
 
@@ -53,9 +59,14 @@ RSpec.describe "UserMovieComments", type: :request do
       expect(parsed_body["user_movie_comments"].first["rating"]).to eq(user_movie_comment.rating)
     end
 
-    it "return pagination" do
+    it "perform pagination" do
       get "/user_movie_comments", params: pagination_page
       expect(parsed_body["user_movie_comments"].count).to eq(2)
+    end
+
+    it "return pagination" do
+      get "/user_movie_comments", params: pagination_page
+      expect(parsed_body).to include(expected_pagination)
     end
   end
 

@@ -4,7 +4,7 @@ class MoviesController < ApplicationController
   before_action :permit_movie_params, only: %i[create update]
 
   def index
-    @movies = Movie.filtering(params)
+    @movies = Movie.filtering(params).page(page).per(per_page)
   end
 
   def show

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.movies @movies do |movie|
   json.id movie.id
   json.title movie.title
@@ -6,3 +8,4 @@ json.movies @movies do |movie|
   json.budget movie.budget
   json.box_office movie.box_office
 end
+json.partial! 'partials/pagination', collection: @movies
