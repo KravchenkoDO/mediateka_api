@@ -13,7 +13,7 @@ class UserMovieCommentPolicy < ApplicationPolicy
   end
 
   def destroy?
-    (user.role == 'admin' || user.role == 'current_user') || user.present? if user
+    user.role == 'admin' || record.user == 'current_user'
   end
 
   class Scope < Scope

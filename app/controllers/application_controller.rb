@@ -1,5 +1,16 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
+  include Pundit
+
+  # before_action :authenticate_current_user
+  #
+  # def authenticate_current_user
+  #   head :unauthorized if current_user.nil?
+  # end
+  #
+  # def current_user
+  #   @current_user ||= User.find_by(email: headers["uid"])
+  # end
 
   private
 
