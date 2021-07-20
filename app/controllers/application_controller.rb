@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
   include Pundit
 
-  # before_action :authenticate_current_user
   #
   # def authenticate_current_user
   #   head :unauthorized if current_user.nil?

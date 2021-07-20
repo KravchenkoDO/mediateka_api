@@ -13,9 +13,7 @@
 ActiveRecord::Schema.define(version: 2021_07_12_081621) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pgcrypto"
   enable_extension "plpgsql"
-  enable_extension "uuid-ossp"
 
   create_table "actors", force: :cascade do |t|
     t.string "first_name"

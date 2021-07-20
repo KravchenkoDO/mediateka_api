@@ -1,4 +1,5 @@
-class MoviesController < ApplicationController
+# frozen_string_literal: true
+class MoviesController < ApiController
   include Pundit
   before_action :find_movie, except: %i[create index]
   before_action :permit_movie_params, only: %i[create update]

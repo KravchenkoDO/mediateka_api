@@ -9,6 +9,8 @@ require 'shoulda/matchers'
 require 'shoulda/matchers'
 require 'database_cleaner'
 require 'pundit/rspec'
+require 'support/auth_helper'
+require 'support/request/auth_helper'
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
@@ -59,6 +61,9 @@ RSpec.configure do |config|
     config.include FactoryBot::Syntax::Methods
 
     config.include RequestSpecHelper, type: :request
+    config.include AuthHelper
+    config.include Requests::AuthHelpers::Includables, type: :request
+    config.extend Requests::AuthHelpers::Extensions, type: :request
 
     config.infer_spec_type_from_file_location!
     # Filter lines from Rails gems in backtraces.

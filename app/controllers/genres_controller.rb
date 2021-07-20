@@ -1,5 +1,6 @@
-class GenresController < ApplicationController
+# frozen_string_literal: true
 
+class GenresController < ApplicationController
   before_action :find_genre, except: %i[create index]
   before_action :permit_genre_params, only: %i[create update]
 
