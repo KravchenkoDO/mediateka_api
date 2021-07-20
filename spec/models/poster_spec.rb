@@ -7,7 +7,7 @@ RSpec.describe Poster, :type => :model do
     let(:poster_with_link_nil) { build :poster, link: nil }
     let(:poster_with_empty_link) { build :poster, link: '' }
     let(:poster_with_valid_link) { build :poster, link: 'https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url' }
-    let(:poster_with_invalid_link){ build :poster, link: 'htps://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url'}
+    let(:poster_with_invalid_link) { build :poster, link: 'htps://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url' }
     let(:expected_message) { { link: ["link not valid"] } }
 
     it "is not valid without a link" do

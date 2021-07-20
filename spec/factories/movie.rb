@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :movie do
     sequence :title do |n|
       "title #{n}"
     end
+    association :poster
     description { Faker::Movie.name }
     age_limit { Faker::Name.initials(number: 8) }
     budget { Faker::Number.between(from: 1, to: 10) }

@@ -36,6 +36,6 @@ class UserMovieCommentsController < ApplicationController
   end
 
   def permit_user_movie_comment_params
-    @permitted_params = params.permit(:comment, :rating)
+    @permitted_params = params.permit(:comment, :movie_id, :user_id, :rating)
   end
 end

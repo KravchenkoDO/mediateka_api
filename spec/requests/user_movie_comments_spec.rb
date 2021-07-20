@@ -97,7 +97,9 @@ RSpec.describe "UserMovieComments", type: :request do
   # Test suite for POST /user_movie_comments
   describe 'POST /user_movie_comments' do
     # valid rating
-    let(:valid_attributes) { { comment: 'good', rating: '4' } }
+    let(:user) { create :user }
+    let(:movie) { create :movie }
+    let(:valid_attributes) { { comment: 'good', user_id: user.id, movie_id: movie.id, rating: '4' } }
 
     context 'when the request is valid' do
       before { post '/user_movie_comments', params: valid_attributes }

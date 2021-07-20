@@ -40,4 +40,8 @@ RSpec.describe Actor, :type => :model do
     it { is_expected.to have_db_column(:first_name).of_type(:string) }
     it { is_expected.to have_db_column(:last_name).of_type(:string) }
   end
+
+  describe "associations" do
+    it { should have_and_belong_to_many(:movies).join_table('movie_actors') }
+  end
 end

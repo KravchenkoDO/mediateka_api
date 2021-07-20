@@ -29,4 +29,9 @@ RSpec.describe UserMovieComment, :type => :model do
   describe "columns" do
     it { is_expected.to have_db_column(:comment).of_type(:string) }
   end
+
+  describe "associations" do
+    it { should belong_to(:user) }
+    it { should belong_to(:movie) }
+  end
 end

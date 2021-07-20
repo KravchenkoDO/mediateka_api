@@ -1,10 +1,10 @@
 class Movie < ApplicationRecord
 
   # model association
-  has_and_belongs_to_many :companies
-  has_and_belongs_to_many :producers
-  has_and_belongs_to_many :genres
-  has_and_belongs_to_many :actors
+  has_and_belongs_to_many :companies, join_table: 'movie_companies'
+  has_and_belongs_to_many :producers, join_table: 'movie_producers'
+  has_and_belongs_to_many :genres, join_table: 'movie_genres'
+  has_and_belongs_to_many :actors, join_table: 'movie_actors'
   belongs_to :poster
   has_many :user_movie_comments
 

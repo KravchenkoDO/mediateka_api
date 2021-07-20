@@ -2,7 +2,7 @@ class Company < ApplicationRecord
   #include Filterable
 
   # model associations
-  has_and_belongs_to_many :movies
+  has_and_belongs_to_many :movies, join_table: 'movie_companies'
 
   # validation
   validates :name, uniqueness: { case_sensitive: false },
