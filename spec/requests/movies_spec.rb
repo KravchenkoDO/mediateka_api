@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Movies', type: :request do
   let(:movies) { create_list :movie, 5 }
   let(:movie) { movies.last }
-  let(:user) { create :user }
+  let(:user) { create :user, role: 'admin' }
 
   describe 'GET /index' do
     let(:expected_first_movie) do
@@ -98,6 +98,9 @@ RSpec.describe 'Movies', type: :request do
 
   # Test suite for GET /movies/:id
   describe 'GET /movies/:id' do
+
+    sign_in(:user)
+
     before { get "/movies/#{movie.id}" }
 
     context 'when the record exists' do
@@ -121,6 +124,7 @@ RSpec.describe 'Movies', type: :request do
 
   # Test suite for POST /movies
   describe 'POST /movies' do
+    sign_in(:user)
     # valid title
     let(:valid_attributes) do
       { title: '21', description: 'Good film', age_limit: 'PG-17', budget: '2000000', box_office: '3500000' }
@@ -169,6 +173,7 @@ RSpec.describe 'Movies', type: :request do
 
   # Test suite for PUT /movies/:id
   describe 'PUT /movies/:id' do
+    sign_in(:user)
     let(:valid_attributes) do
       { title: '21', description: 'Good film', age_limit: 'PG-17', budget: '2000000', box_office: '3500000' }
     end
@@ -195,6 +200,7 @@ RSpec.describe 'Movies', type: :request do
   end
 
   context 'when the record does not exist' do
+    sign_in(:user)
     before { put '/movies/100' }
 
     it 'returns status code 404' do
@@ -204,6 +210,7 @@ RSpec.describe 'Movies', type: :request do
 
   # Test suite for DELETE /movies/:id
   describe 'DELETE /movies/:id' do
+    sign_in(:user)
     it 'returns status code 204' do
       delete "/movies/#{movie.id}"
       expect(response).to have_http_status(204)

@@ -8,13 +8,15 @@ class GenresController < ApplicationController
     @genres = Genre.filtering(params).page(page).per(per_page)
   end
 
-  def show; end
+  def show
+    #authorize @genres
+  end
 
-  authorize @genres
+
 
   def create
     @genre = Genre.new(@permitted_params)
-    authorize @genres
+    #authorize @genres
     return render json: { errors: @genre.errors.messages }, status: 422 unless @genre.save
 
     render status: :created
@@ -29,7 +31,7 @@ class GenresController < ApplicationController
 
   def destroy
     @genre.destroy
-    authorize @genres
+    #authorize @genres
   end
 
   private

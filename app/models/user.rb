@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  enum role: %w[guest user admin]
+
   def self.filtering(params)
     like(:first_name, params[:first_name])
       .like(:last_name, params[:last_name])

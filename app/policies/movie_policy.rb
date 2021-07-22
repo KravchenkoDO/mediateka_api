@@ -1,11 +1,11 @@
 class MoviePolicy < ApplicationPolicy
 
   def show?
-    (user.role == 'admin' || user.role == 'current_user') || user.present? if user
+    user.admin? || user.user? if user
   end
 
   def create?
-    user.role == 'admin' || user.present? if user
+    user.admin? || user.present? if user
   end
 
   def update?

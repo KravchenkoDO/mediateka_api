@@ -7,13 +7,15 @@ class PostersController < ApplicationController
     @posters = Poster.all.page(page).per(per_page)
   end
 
-  def show; end
+  def show
+    #authorize @posters
+  end
 
-  authorize @posters
+
 
   def create
     @poster = Poster.new(@permitted_params)
-    authorize @posters
+    #authorize @posters
     if @poster.save
       render status: :created
     else
@@ -23,14 +25,14 @@ class PostersController < ApplicationController
 
   def update
     unless @poster.update(@permitted_params)
-      authorize @posters
+      #authorize @posters
       render json: { errors: @poster.errors.messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
     @poster.destroy
-    authorize @posters
+    #authorize @posters
   end
 
   private

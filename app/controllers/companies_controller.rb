@@ -7,14 +7,14 @@ class CompaniesController < ApplicationController
   end
 
   # GET /companies/:id
-  def show; end
-
-  authorize @companies
+  def show
+    #authorize @companies
+  end
 
   # PUT /companies/:id
   def update
     unless @company.update(@permitted_params)
-      authorize @companies
+      #authorize @companies
       render json: { errors: @company.errors.messages }, status: :unprocessable_entity
     end
   end
@@ -22,13 +22,13 @@ class CompaniesController < ApplicationController
   # DELETE /companies/:id
   def destroy
     @company.destroy
-    authorize @companies
+    #authorize @companies
   end
 
   # POST /companies
   def create
     @company = Company.new(@permitted_params)
-    authorize @companies
+    #authorize @companies
     if @company.save
       render status: :created
     else

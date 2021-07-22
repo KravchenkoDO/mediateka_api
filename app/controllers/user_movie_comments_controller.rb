@@ -7,13 +7,16 @@ class UserMovieCommentsController < ApplicationController
     @user_movie_comments = UserMovieComment.filtering(params).page(page).per(per_page)
   end
 
-  def show; end
+  def show
+    # authorize @user_movie_comments
+  end
 
-  authorize @user_movie_comments
+
+
 
   def create
     @user_movie_comment = UserMovieComment.new(@permitted_params)
-    authorize @user_movie_comments
+    #authorize @user_movie_comments
     if @user_movie_comment.save
       render status: :created
     else
@@ -23,14 +26,14 @@ class UserMovieCommentsController < ApplicationController
 
   def update
     unless @user_movie_comment.update(@permitted_params)
-      authorize @user_movie_comments
+      #authorize @user_movie_comments
       render json: { errors: @user_movie_comment.errors.messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
     @user_movie_comment.destroy
-    authorize @user_movie_comments
+    #authorize @user_movie_comments
   end
 
   private

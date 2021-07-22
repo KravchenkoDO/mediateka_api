@@ -7,13 +7,15 @@ class ProducersController < ApplicationController
     @producers = Producer.filtering(params).page(page).per(per_page)
   end
 
-  def show; end
+  def show
+    #authorize @producers
+  end
 
-  authorize @producers
+
 
   def create
     @producer = Producer.new(@permitted_params)
-    authorize @producers
+    #authorize @producers
     if @producer.save
       render status: :created
     else
@@ -23,14 +25,14 @@ class ProducersController < ApplicationController
 
   def update
     unless @producer.update(@permitted_params)
-      authorize @producers
+      #authorize @producers
       render json: { errors: @producer.errors.messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
     @producer.destroy
-    authorize @producers
+    #authorize @producers
   end
 
   private

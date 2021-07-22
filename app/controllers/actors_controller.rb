@@ -7,13 +7,13 @@ class ActorsController < ApplicationController
     @actors = Actor.filtering(params).page(page).per(per_page)
   end
 
-  def show; end
-
-  authorize @actors
+  def show
+    #authorize @actors
+  end
 
   def create
     @actor = Actor.new(@permitted_params)
-    authorize @actors
+    #authorize @actors
     if @actor.save
       render status: :created
     else
@@ -23,14 +23,14 @@ class ActorsController < ApplicationController
 
   def update
     unless @actor.update(@permitted_params)
-      authorize @actors
+      #authorize @actors
       render json: { errors: @actor.errors.messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
     @actor.destroy
-    authorize @actors
+    #authorize @actors
   end
 
   private
