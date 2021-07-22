@@ -2,8 +2,7 @@ class Company < ApplicationRecord
   #include Filterable
 
   # model associations
-  has_many :movie_companies
-  has_many :movies, through: :movie_companies
+  has_and_belongs_to_many :movies, join_table: 'movie_companies'
 
   # validation
   validates :name, uniqueness: { case_sensitive: false },

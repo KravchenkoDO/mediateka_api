@@ -1,2 +1,0 @@
-class MovieProducer < ApplicationRecord
-end

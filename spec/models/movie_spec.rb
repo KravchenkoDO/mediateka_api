@@ -43,4 +43,13 @@ RSpec.describe Movie, :type => :model do
     it { is_expected.to have_db_column(:budget).of_type(:integer) }
     it { is_expected.to have_db_column(:box_office).of_type(:integer) }
   end
+
+  describe "associations" do
+    it { should belong_to(:poster) }
+    it { should have_and_belong_to_many(:companies).join_table('movie_companies') }
+    it { should have_and_belong_to_many(:producers).join_table('movie_producers') }
+    it { should have_and_belong_to_many(:genres).join_table('movie_genres') }
+    it { should have_and_belong_to_many(:actors).join_table('movie_actors') }
+    it { should have_many(:user_movie_comments) }
+  end
 end

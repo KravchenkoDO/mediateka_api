@@ -118,7 +118,8 @@ RSpec.describe "Movies", type: :request do
   # Test suite for POST /movies
   describe 'POST /movies' do
     # valid title
-    let(:valid_attributes) { { title: '21', description: 'Good film', age_limit: 'PG-17', budget: '2000000', box_office: '3500000' } }
+    let(:poster) { create :poster }
+    let(:valid_attributes) { { title: '21', description: 'Good film', poster_id: poster.id, age_limit: 'PG-17', budget: '2000000', box_office: '3500000' } }
 
     context 'when the request is valid' do
       before { post '/movies', params: valid_attributes }

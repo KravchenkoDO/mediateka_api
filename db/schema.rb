@@ -40,51 +40,51 @@ ActiveRecord::Schema.define(version: 2021_07_12_081621) do
   end
 
   create_table "movie_actors", force: :cascade do |t|
-    t.bigint "movies_id"
-    t.bigint "actors_id"
+    t.bigint "movie_id"
+    t.bigint "actor_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["actors_id"], name: "index_movie_actors_on_actors_id"
-    t.index ["movies_id"], name: "index_movie_actors_on_movies_id"
+    t.index ["actor_id"], name: "index_movie_actors_on_actor_id"
+    t.index ["movie_id"], name: "index_movie_actors_on_movie_id"
   end
 
   create_table "movie_companies", force: :cascade do |t|
-    t.bigint "movies_id"
-    t.bigint "companies_id"
+    t.bigint "movie_id"
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["companies_id"], name: "index_movie_companies_on_companies_id"
-    t.index ["movies_id"], name: "index_movie_companies_on_movies_id"
+    t.index ["company_id"], name: "index_movie_companies_on_company_id"
+    t.index ["movie_id"], name: "index_movie_companies_on_movie_id"
   end
 
   create_table "movie_genres", force: :cascade do |t|
-    t.bigint "movies_id"
-    t.bigint "genres_id"
+    t.bigint "movie_id"
+    t.bigint "genre_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["genres_id"], name: "index_movie_genres_on_genres_id"
-    t.index ["movies_id"], name: "index_movie_genres_on_movies_id"
+    t.index ["genre_id"], name: "index_movie_genres_on_genre_id"
+    t.index ["movie_id"], name: "index_movie_genres_on_movie_id"
   end
 
   create_table "movie_producers", force: :cascade do |t|
-    t.bigint "movies_id"
-    t.bigint "producers_id"
+    t.bigint "movie_id"
+    t.bigint "producer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["movies_id"], name: "index_movie_producers_on_movies_id"
-    t.index ["producers_id"], name: "index_movie_producers_on_producers_id"
+    t.index ["movie_id"], name: "index_movie_producers_on_movie_id"
+    t.index ["producer_id"], name: "index_movie_producers_on_producer_id"
   end
 
   create_table "movies", force: :cascade do |t|
     t.string "title", null: false
     t.string "description"
-    t.bigint "posters_id"
+    t.bigint "poster_id"
     t.string "age_limit"
     t.integer "budget"
     t.integer "box_office"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["posters_id"], name: "index_movies_on_posters_id"
+    t.index ["poster_id"], name: "index_movies_on_poster_id"
     t.index ["title"], name: "index_movies_on_title"
   end
 
@@ -103,32 +103,32 @@ ActiveRecord::Schema.define(version: 2021_07_12_081621) do
   end
 
   create_table "user_favorite_movies", force: :cascade do |t|
-    t.bigint "users_id"
-    t.bigint "movies_id"
+    t.bigint "user_id"
+    t.bigint "movie_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["movies_id"], name: "index_user_favorite_movies_on_movies_id"
-    t.index ["users_id"], name: "index_user_favorite_movies_on_users_id"
+    t.index ["movie_id"], name: "index_user_favorite_movies_on_movie_id"
+    t.index ["user_id"], name: "index_user_favorite_movies_on_user_id"
   end
 
   create_table "user_follow_genres", force: :cascade do |t|
-    t.bigint "users_id"
-    t.bigint "genres_id"
+    t.bigint "user_id"
+    t.bigint "genre_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["genres_id"], name: "index_user_follow_genres_on_genres_id"
-    t.index ["users_id"], name: "index_user_follow_genres_on_users_id"
+    t.index ["genre_id"], name: "index_user_follow_genres_on_genre_id"
+    t.index ["user_id"], name: "index_user_follow_genres_on_user_id"
   end
 
   create_table "user_movie_comments", force: :cascade do |t|
-    t.bigint "movies_id"
-    t.bigint "users_id"
+    t.bigint "movie_id"
+    t.bigint "user_id"
     t.string "comment", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "rating"
-    t.index ["movies_id"], name: "index_user_movie_comments_on_movies_id"
-    t.index ["users_id"], name: "index_user_movie_comments_on_users_id"
+    t.index ["movie_id"], name: "index_user_movie_comments_on_movie_id"
+    t.index ["user_id"], name: "index_user_movie_comments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -162,19 +162,17 @@ ActiveRecord::Schema.define(version: 2021_07_12_081621) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  add_foreign_key "movie_actors", "actors", column: "actors_id"
-  add_foreign_key "movie_actors", "movies", column: "movies_id"
-  add_foreign_key "movie_companies", "companies", column: "companies_id"
-  add_foreign_key "movie_companies", "movies", column: "movies_id"
-  add_foreign_key "movie_genres", "genres", column: "genres_id"
-  add_foreign_key "movie_genres", "movies", column: "movies_id"
-  add_foreign_key "movie_producers", "movies", column: "movies_id"
-  add_foreign_key "movie_producers", "producers", column: "producers_id"
-  add_foreign_key "movies", "posters", column: "posters_id"
-  add_foreign_key "user_favorite_movies", "movies", column: "movies_id"
-  add_foreign_key "user_favorite_movies", "users", column: "users_id"
-  add_foreign_key "user_follow_genres", "genres", column: "genres_id"
-  add_foreign_key "user_follow_genres", "users", column: "users_id"
-  add_foreign_key "user_movie_comments", "movies", column: "movies_id"
-  add_foreign_key "user_movie_comments", "users", column: "users_id"
+  add_foreign_key "movie_actors", "actors"
+  add_foreign_key "movie_actors", "movies"
+  add_foreign_key "movie_genres", "genres"
+  add_foreign_key "movie_genres", "movies"
+  add_foreign_key "movie_producers", "movies"
+  add_foreign_key "movie_producers", "producers"
+  add_foreign_key "movies", "posters"
+  add_foreign_key "user_favorite_movies", "movies"
+  add_foreign_key "user_favorite_movies", "users"
+  add_foreign_key "user_follow_genres", "genres"
+  add_foreign_key "user_follow_genres", "users"
+  add_foreign_key "user_movie_comments", "movies"
+  add_foreign_key "user_movie_comments", "users"
 end

@@ -34,4 +34,8 @@ RSpec.describe Company, :type => :model do
   describe "columns" do
     it { is_expected.to have_db_column(:name).of_type(:string) }
   end
+
+  describe "associations" do
+    it { should have_and_belong_to_many(:movies).join_table('movie_companies') }
+  end
 end
