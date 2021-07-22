@@ -1,27 +1,52 @@
 require 'rails_helper'
 
 RSpec.describe ActorPolicy, type: :policy do
-  let(:user) { User.new }
+  let(:user_user) { build :user, role: 'user' }
+  let(:admin_user) { build :user, role: 'admin' }
 
   subject { described_class }
 
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
   permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
+    context 'for auth user' do
+      it 'grants access if user admin' do
+        expect(subject).to permit(admin_user)
+      end
+
+      it 'grants access if user user' do
+        expect(subject).to permit(user_user)
+      end
+    end
+
+    context 'if user not present' do
+      let(:user) { nil }
+      it { should_not permit(user) }
+    end
+
+    context 'for guest user' do
+      let(:user) { build :user, role: 'guest' }
+      it { should_not permit(user) }
+    end
   end
 
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+  permissions :create?, :update?, :destroy? do
+    context 'for auth user' do
+      it 'grants access if user admin' do
+        expect(subject).to permit(admin_user)
+      end
 
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+      it 'grants access if user user' do
+        expect(subject).to_not permit(user_user)
+      end
+    end
 
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+    context 'if user not present' do
+      let(:user) { nil }
+      it { should_not permit(user) }
+    end
+
+    context 'for guest user' do
+      let(:user) { build :user, role: 'guest' }
+      it { should_not permit(user) }
+    end
   end
 end

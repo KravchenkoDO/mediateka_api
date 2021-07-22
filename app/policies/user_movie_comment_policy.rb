@@ -1,19 +1,15 @@
 class UserMovieCommentPolicy < ApplicationPolicy
 
-  def show?
-    (user.role == 'admin' || user.role == 'current_user') || user.present? if user
-  end
-
   def create?
-    (user.role == 'admin' || user.role == 'current_user') || user.present? if user
+    user.admin? || user.user? if user
   end
 
   def update?
-    (user.role == 'admin' || user.role == 'current_user') || user.present? if user
+    user.admin? || (user.user? && record.user == user) if user
   end
 
   def destroy?
-    user.role == 'admin' || record.user == 'current_user'
+    user.admin? || (user.user? && record.user == user) if user
   end
 
   class Scope < Scope

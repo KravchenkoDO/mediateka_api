@@ -10,28 +10,28 @@ class ApplicationPolicy
     false
   end
 
-  def show?
-    false
-  end
-
-  def create?
-    false
-  end
-
   def new?
     create?
-  end
-
-  def update?
-    false
   end
 
   def edit?
     update?
   end
 
+  def show?
+    user.admin? || user.user? if user
+  end
+
+  def create?
+    user.admin? if user
+  end
+
+  def update?
+    user.admin? if user
+  end
+
   def destroy?
-    false
+    user.admin? if user
   end
 
   class Scope

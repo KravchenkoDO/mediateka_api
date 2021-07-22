@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Producers", type: :request do
-  include RequestSpecHelper
   let(:producers) { create_list :producer, 5 }
   let(:producer) { producers.last }
 
